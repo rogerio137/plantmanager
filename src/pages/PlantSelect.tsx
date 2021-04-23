@@ -6,16 +6,20 @@ import {
     FlatList,
     ActivityIndicator
 } from 'react-native';
-import colors from '../styles/colors';
 import { Header } from '../components/Header';
-import { color } from 'react-native-reanimated';
-import fonts from '../styles/fonts';
 import { EnviromentButton } from '../components/EnviromentButton';
+import { PlantCardPrimay } from '../components/PlantCardPrimary';
+import { Load } from '../components/Load';
+
+import colors from '../styles/colors';
+
+import fonts from '../styles/fonts';
+
 import api from '../services/api';
 import { unloadAllAsync } from 'expo-font';
-import { PlantCardPrimay } from '../components/PlantCardPrimary';
 
-import { Load } from '../components/Load';
+
+
 import { useNavigationState } from '@react-navigation/core';
 
 interface EnvirometProps{
@@ -33,7 +37,7 @@ interface PlantProps{
     frequency: {
         times: number;
         repeat_every: string;
-      }
+    }
 }
 
 
@@ -85,7 +89,7 @@ export function PlantSelect() {
             return;
         
         setLoadingMore(true);
-        setPage(oldValue => oldValue +1);
+        setPage(oldValue => oldValue + 1);
         fetchPlants();
     }
 
@@ -137,27 +141,25 @@ export function PlantSelect() {
                     contentContainerStyle={styles.enviromentList}
                 />
             </View>
-
             <View style={styles.plants}>
-                <FlatList 
-                    data={filteredPlants}
-                    renderItem={( { item} ) => (
-                        <PlantCardPrimay data={ item } />
-                    )}
-                    showsVerticalScrollIndicator = { false }
-                    numColumns={2}
-                    onEndReachedThreshold={0.1}
-                    onEndReached={({ distanceFromEnd }) =>
-                        handleFetchMore(distanceFromEnd)
+            <FlatList 
+                data={filteredPlants}
+                renderItem={( { item} ) => (
+                    <PlantCardPrimay data={ item } />
+                )}
+                showsVerticalScrollIndicator = { false }
+                numColumns={2}
+                onEndReachedThreshold={0.1}
+                onEndReached={({ distanceFromEnd }) =>
+                    handleFetchMore(distanceFromEnd)
                 }
-                ListFooterComponent ={
-                    loadingMore
-                    ? <ActivityIndicator color={colors.green}  />
-                    : <> </>
-                    
+                ListFooterComponent={
+                    loadingMore ? <ActivityIndicator color={colors.green} /> : <></>
                 }
-                />
+            />
             </View>
+
+            
             
         </View>
     )
