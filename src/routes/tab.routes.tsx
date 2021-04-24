@@ -29,6 +29,7 @@ const AuthRoutes = () => {
                             name='add-circle-outline'
                             size={size}
                             color={color}
+                            
                         />
                     ))
                 }}
